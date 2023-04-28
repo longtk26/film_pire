@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Box, CssBaseline } from "@mui/material";
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
 import {
     Movies,
@@ -12,25 +13,29 @@ import {
 import classes from "./styles";
 
 const App = () => {
+    const theme = createTheme({});
+
     return (
-        <BrowserRouter>
-            <Box sx={classes.root}>
-                <CssBaseline />
-                <NavBar />
-                <Box sx={classes.content}>
-                    <Box sx={classes.toolbar} />
-                    <Routes>
-                        <Route path="/" element={<Movies />} />
-                        <Route
-                            path="/movies/:id"
-                            element={<MovieInfomation />}
-                        />
-                        <Route path="/actors/:id" element={<Actors />} />
-                        <Route path="/profile/:id" element={<Profile />} />
-                    </Routes>
+        <ThemeProvider theme={theme}>
+            <BrowserRouter>
+                <Box sx={classes.root}>
+                    <CssBaseline />
+                    <NavBar />
+                    <Box sx={classes.content}>
+                        <Box sx={classes.toolbar} />
+                        <Routes>
+                            <Route path="/" element={<Movies />} />
+                            <Route
+                                path="/movies/:id"
+                                element={<MovieInfomation />}
+                            />
+                            <Route path="/actors/:id" element={<Actors />} />
+                            <Route path="/profile/:id" element={<Profile />} />
+                        </Routes>
+                    </Box>
                 </Box>
-            </Box>
-        </BrowserRouter>
+            </BrowserRouter>
+        </ThemeProvider>
     );
 };
 
