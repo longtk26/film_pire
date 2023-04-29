@@ -1,5 +1,7 @@
 import { useTheme } from "@mui/material/styles";
 
+const drawerWidth = 240;
+
 const useClassesNavBar = () => {
     const theme = useTheme();
     return {
@@ -17,6 +19,21 @@ const useClassesNavBar = () => {
             marginRight: theme.spacing(2),
             [theme.breakpoints.up("sm")]: {
                 display: "none",
+            },
+        },
+        drawer: {
+            [theme.breakpoints.up("sm")]: {
+                width: drawerWidth,
+                flexShrink: 0,
+            },
+        },
+        drawerPaper: {
+            width: drawerWidth,
+        },
+        linkButton: {
+            "&:hover": {
+                color: "white !important",
+                textDecoration: "none",
             },
         },
     };
