@@ -1,4 +1,6 @@
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { selectGenreOrCategory } from "../../features/currentGenreOrCategory";
 import {
     Divider,
     List,
@@ -6,7 +8,7 @@ import {
     ListItemText,
     ListSubheader,
     ListItemIcon,
-    Box,
+    Box as BoxMUI,
     CircularProgress,
 } from "@mui/material";
 
@@ -14,6 +16,8 @@ import { Link } from "react-router-dom";
 import { useTheme } from "@mui/material/styles";
 
 import useClassesSidebar from "./useClassesSidebar";
+import { useGetGenresQuery } from "../../services/TMDB";
+import genresIcon from "../../assets/genres";
 
 const categories = [
     {
@@ -30,25 +34,6 @@ const categories = [
     },
 ];
 
-const demoCategories = [
-    {
-        label: "Comedy",
-        value: "comedy",
-    },
-    {
-        label: "Action",
-        value: "action",
-    },
-    {
-        label: "Horror",
-        value: "horror",
-    },
-    {
-        label: "Animation",
-        value: "animation",
-    },
-];
-
 const redLogo =
     "https://fontmeme.com/permalink/210930/8531c658a743debe1e1aa1a2fc82006e.png";
 const blueLogo =
@@ -57,6 +42,8 @@ const blueLogo =
 const Sidebar = ({ setMobileOpen }) => {
     const theme = useTheme();
     const classes = useClassesSidebar();
+    const { data, isLoading } = useGetGenresQuery();
+    const dispatch = useDispatch();
 
     return (
         <>
@@ -72,15 +59,19 @@ const Sidebar = ({ setMobileOpen }) => {
                 <ListSubheader>Categories</ListSubheader>
                 {categories.map(({ label, value }) => (
                     <Link key={value} style={classes.links} to="/">
-                        <ListItemButton onClick={() => {}}>
-                            {/* <ListItemIcon>
-                                <img
-                                    src={redLogo}
-                                    style={classes.genreImage}
+                        <ListItemButton
+                            onClick={() =>
+                                dispatch(selectGenreOrCategory(value))
+                            }
+                        >
+                            <ListItemIcon>
+                                <BoxMUI
+                                    component="img"
+                                    src={genresIcon[label.toLowerCase()]}
                                     height={30}
                                     alt=""
                                 />
-                            </ListItemIcon> */}
+                            </ListItemIcon>
 
                             <ListItemText primary={label} />
                         </ListItemButton>
@@ -91,22 +82,32 @@ const Sidebar = ({ setMobileOpen }) => {
             <Divider />
             <List>
                 <ListSubheader>Genres</ListSubheader>
-                {demoCategories.map(({ label, value }) => (
-                    <Link key={value} style={classes.links} to="/">
-                        <ListItemButton onClick={() => {}}>
-                            {/* <ListItemIcon>
-                                <img
-                                    src={redLogo}
-                                    style={classes.genreImage}
-                                    height={30}
-                                    alt=""
-                                />
-                            </ListItemIcon> */}
+                {isLoading ? (
+                    <BoxMUI display="flex" justifyContent="center">
+                        <CircularProgress />
+                    </BoxMUI>
+                ) : (
+                    data.genres.map(({ name, id }) => (
+                        <Link key={id} style={classes.links} to="/">
+                            <ListItemButton
+                                onClick={() =>
+                                    dispatch(selectGenreOrCategory(id))
+                                }
+                            >
+                                <ListItemIcon>
+                                    <img
+                                        src={genresIcon[name.toLowerCase()]}
+                                        style={classes.genreImage}
+                                        height={30}
+                                        alt={name}
+                                    />
+                                </ListItemIcon>
 
-                            <ListItemText primary={label} />
-                        </ListItemButton>
-                    </Link>
-                ))}
+                                <ListItemText primary={name} />
+                            </ListItemButton>
+                        </Link>
+                    ))
+                )}
             </List>
         </>
     );

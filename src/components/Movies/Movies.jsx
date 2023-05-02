@@ -12,7 +12,14 @@ import { MovieList } from "..";
 import useClassesMovies from "./useClassesMovies";
 
 const Movies = () => {
-    const { data, isError, isLoading } = useGetMoviesQuery();
+    const { genreIdOrCategoryName, page } = useSelector(
+        (state) => state.currentGenreOrCategory
+    );
+    const { data, isError, isLoading } = useGetMoviesQuery({
+        genreIdOrCategoryName,
+        page,
+    });
+
     const classes = useClassesMovies();
 
     if (isLoading) {
