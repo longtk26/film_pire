@@ -24,7 +24,7 @@ const Movie = ({ movie, i }) => {
                             src={
                                 movie.poster_path
                                     ? `https://image.tmdb.org/t/p/w500/${movie.poster_path}`
-                                    : "https://www.fillmurray.com/200/300"
+                                    : "https://image.tmdb.org/t/p/w500//rBxo92GmbsQbinrbJOFnmiKuMXj.jpg"
                             }
                             height={300}
                             style={{ borderRadius: 20 }}

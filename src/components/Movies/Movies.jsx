@@ -12,17 +12,19 @@ import { MovieList } from "..";
 import useClassesMovies from "./useClassesMovies";
 
 const Movies = () => {
-    const { genreIdOrCategoryName, page } = useSelector(
+    const { genreIdOrCategoryName, page, searchQuery } = useSelector(
         (state) => state.currentGenreOrCategory
     );
-    const { data, isError, isLoading } = useGetMoviesQuery({
+
+    const { data, isError, isFetching } = useGetMoviesQuery({
         genreIdOrCategoryName,
         page,
+        searchQuery,
     });
 
     const classes = useClassesMovies();
 
-    if (isLoading) {
+    if (isFetching) {
         return (
             <Box sx={classes.loading}>
                 <CircularProgress size="4rem" />
@@ -32,7 +34,12 @@ const Movies = () => {
 
     if (!data.results.length) {
         return (
-            <Box display="flex" alignItems="center" mt="20px">
+            <Box
+                display="flex"
+                alignItems="center"
+                justifyContent="center"
+                mt="20px"
+            >
                 <Typography variant="h4">
                     No movies that match that name
                     <br />

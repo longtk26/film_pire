@@ -1,0 +1,52 @@
+import { useState } from "react";
+import { TextField, InputAdornment, Box } from "@mui/material";
+import { Search as SearchIcon } from "@mui/icons-material";
+import { useTheme } from "@mui/material/styles";
+import { useDispatch } from "react-redux";
+import { searchMovie } from "../../features/currentGenreOrCategory";
+
+const Search = () => {
+    const theme = useTheme();
+    const dispatch = useDispatch();
+    const [query, setQuery] = useState("");
+
+    const handleKeyDown = (e) => {
+        if (e.key === "Enter") {
+            dispatch(searchMovie(query));
+        }
+    };
+
+    return (
+        <Box
+            sx={{
+                [theme.breakpoints.down("sm")]: {
+                    display: "flex",
+                    justifyContent: "center",
+                    width: "100%",
+                    marginBottom: "10px",
+                },
+            }}
+        >
+            <TextField
+                variant="standard"
+                value={query}
+                onKeyDown={handleKeyDown}
+                onChange={(e) => setQuery(e.target.value)}
+                InputProps={{
+                    sx: {
+                        color: theme.palette.mode === "light" && "black",
+                        filter: theme.palette.mode === "light" && "invert(1)",
+                    },
+
+                    startAdornment: (
+                        <InputAdornment position="start">
+                            <SearchIcon />
+                        </InputAdornment>
+                    ),
+                }}
+            />
+        </Box>
+    );
+};
+
+export default Search;
