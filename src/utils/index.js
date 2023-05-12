@@ -44,3 +44,30 @@ export const createSessionId = async () => {
         }
     }
 };
+
+export const createDayMonthYear = (time) => {
+    const months = {
+        "01": "Jan",
+        "02": "Feb",
+        "03": "Mar",
+        "04": "Apr",
+        "05": "May",
+        "06": "Jun",
+        "07": "Jul",
+        "08": "Aug",
+        "09": "Sep",
+        10: "Oct",
+        11: "Nov",
+        12: "Dec",
+    };
+
+    const timeElement = time?.split("-");
+
+    if (timeElement) {
+        const month = months[timeElement[1]];
+        const day = timeElement[2];
+        const year = timeElement[0];
+        const timeUI = `${month} ${day} ${year}`;
+        return timeUI;
+    }
+};
