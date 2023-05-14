@@ -4,7 +4,6 @@ const genreOrCategory = createSlice({
     name: "genreOrCategory",
     initialState: {
         genreIdOrCategoryName: "",
-        page: 1,
         searchQuery: "",
     },
     reducers: {

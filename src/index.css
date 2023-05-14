@@ -1,0 +1,15 @@
+::-webkit-scrollbar {
+    width: 7px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #a5a5a5;
+}
+
+::-webkit-scrollbar-track {
+    background: #cfcfcf;
+}
+
+.css-12i7wg6-MuiPaper-root-MuiDrawer-paper {
+    width: 240px;
+}

@@ -5,14 +5,21 @@ import {
     useMediaQuery,
     Typography,
 } from "@mui/material";
-
+import { useTheme } from "@mui/material/styles";
 import { useSelector } from "react-redux";
+
 import { useGetMoviesQuery } from "../../services/TMDB";
-import { MovieList } from "..";
+import { MovieList, Pagination } from "..";
 import useClassesMovies from "./useClassesMovies";
 
 const Movies = () => {
-    const { genreIdOrCategoryName, page, searchQuery } = useSelector(
+    const theme = useTheme();
+    const isLarge = useMediaQuery(theme.breakpoints.up("xl"));
+    const numbersOfMovie = isLarge ? 18 : 16;
+
+    const [page, setPage] = useState(1);
+
+    const { genreIdOrCategoryName, searchQuery } = useSelector(
         (state) => state.currentGenreOrCategory
     );
 
@@ -52,9 +59,15 @@ const Movies = () => {
     if (isError) {
         return "An error occurred ";
     }
+
     return (
         <div>
-            <MovieList movies={data} />
+            <MovieList movies={data} numbersOfMovie={numbersOfMovie} />
+            <Pagination
+                currentPage={page}
+                setPage={setPage}
+                totalPage={data?.total_pages}
+            />
         </div>
     );
 };

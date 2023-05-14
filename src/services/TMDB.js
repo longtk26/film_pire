@@ -50,14 +50,15 @@ export const tmdbApi = createApi({
         // Get movie recommendations
 
         getMovieRecommendations: builder.query({
-            query: (id) => `movie/${id}/recommendations?api_key=${tmdbApiKey}`,
+            query: ({ id, page }) =>
+                `movie/${id}/recommendations?api_key=${tmdbApiKey}&page=${page}`,
         }),
 
         // Get actor info
 
         getMoviesOfActor: builder.query({
-            query: (id) =>
-                `discover/movie?with_cast=${id}&page=1&api_key=${tmdbApiKey}`,
+            query: ({ id, page }) =>
+                `discover/movie?with_cast=${id}&page=${page}&api_key=${tmdbApiKey}`,
         }),
 
         getActor: builder.query({

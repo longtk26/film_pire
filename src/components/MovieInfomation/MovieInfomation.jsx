@@ -29,14 +29,15 @@ import {
 } from "../../services/TMDB";
 import { selectGenreOrCategory } from "../../features/currentGenreOrCategory";
 import { createDayMonthYear } from "../../utils";
-import { MovieList } from "../";
+import { MovieList, Pagination } from "../";
 import genresIcon from "../../assets/genres";
 
 const MovieInfomation = () => {
+    const [page, setPage] = useState(1);
     const { id } = useParams();
     const { data, isFetching, isError } = useGetMovieQuery(id);
     const { data: recommendations, isFetching: isFetchingRecommendations } =
-        useGetMovieRecommendationsQuery(id);
+        useGetMovieRecommendationsQuery({ id, page });
 
     const dispatch = useDispatch();
     const theme = useTheme();
@@ -228,7 +229,6 @@ const MovieInfomation = () => {
                                     }
                                     sx={{
                                         height: "128px",
-                                        width: "100%",
                                         borderRadius: "10px",
                                         objectFit: "cover",
                                     }}
@@ -375,7 +375,17 @@ const MovieInfomation = () => {
                         <CircularProgress size="8rem" />
                     </Box>
                 ) : (
-                    <MovieList movies={recommendations} numbersOfMovie={12} />
+                    <>
+                        <MovieList
+                            movies={recommendations}
+                            numbersOfMovie={12}
+                        />
+                        <Pagination
+                            currentPage={page}
+                            setPage={setPage}
+                            totalPages={recommendations?.total_pages}
+                        />
+                    </>
                 )}
             </Box>
             <Modal
