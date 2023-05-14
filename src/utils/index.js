@@ -60,14 +60,21 @@ export const createDayMonthYear = (time) => {
         11: "Nov",
         12: "Dec",
     };
+    const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-    const timeElement = time?.split("-");
+    if (time) {
+        const date = new Date(time);
 
-    if (timeElement) {
+        const timeElement = time?.split("-");
+
+        const dayOfWeek = daysOfWeek[date.getDay()];
         const month = months[timeElement[1]];
         const day = timeElement[2];
         const year = timeElement[0];
+
         const timeUI = `${month} ${day} ${year}`;
-        return timeUI;
+        return [timeUI, dayOfWeek];
     }
+
+    return [];
 };

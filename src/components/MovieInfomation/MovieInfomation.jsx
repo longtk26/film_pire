@@ -40,7 +40,7 @@ const MovieInfomation = () => {
 
     const dispatch = useDispatch();
     const theme = useTheme();
-    const timeUI = createDayMonthYear(data?.release_date);
+    const [timeUI] = createDayMonthYear(data?.release_date);
 
     const [favorite, setFavorite] = useState(false);
     const [addWatchList, setaddWatchList] = useState(false);
@@ -73,8 +73,6 @@ const MovieInfomation = () => {
             </Box>
         );
     }
-
-    console.log(data, recommendations);
 
     return (
         <>
