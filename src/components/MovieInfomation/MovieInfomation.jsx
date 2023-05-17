@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useTheme } from "@mui/material/styles";
@@ -24,35 +24,58 @@ import {
 } from "@mui/icons-material";
 
 import {
+    useGetFavoriteMoviesQuery,
+    useGetWatchListMoviesQuery,
     useGetMovieQuery,
     useGetMovieRecommendationsQuery,
 } from "../../services/TMDB";
 import { selectGenreOrCategory } from "../../features/currentGenreOrCategory";
-import { createDayMonthYear } from "../../utils";
+import {
+    createDayMonthYear,
+    handleAddToFavorite,
+    handleAddToWatchlist,
+} from "../../utils";
 import { MovieList, Pagination } from "../";
 import genresIcon from "../../assets/genres";
 
 const MovieInfomation = () => {
     const [page, setPage] = useState(1);
     const { id } = useParams();
+    const dispatch = useDispatch();
+    const theme = useTheme();
+
     const { data, isFetching, isError } = useGetMovieQuery(id);
+    const { data: favoriteMovies } = useGetFavoriteMoviesQuery();
+    const { data: watchlistMovies } = useGetWatchListMoviesQuery();
     const { data: recommendations, isFetching: isFetchingRecommendations } =
         useGetMovieRecommendationsQuery({ id, page });
 
-    const dispatch = useDispatch();
-    const theme = useTheme();
     const [timeUI] = createDayMonthYear(data?.release_date);
 
     const [favorite, setFavorite] = useState(false);
-    const [addWatchList, setaddWatchList] = useState(false);
+    const [addWatchList, setAddWatchList] = useState(false);
     const [open, setOpen] = useState(false);
 
-    const addToFavorite = () => {
+    useEffect(() => {
+        setFavorite(
+            !!favoriteMovies?.results?.find((item) => item.id === data?.id)
+        );
+    }, [favoriteMovies, data?.id]);
+
+    useEffect(() => {
+        setAddWatchList(
+            !!watchlistMovies?.results?.find((item) => item.id === data?.id)
+        );
+    }, [watchlistMovies, data?.id]);
+
+    const addToFavorite = async () => {
+        await handleAddToFavorite(id, favorite);
         setFavorite((prev) => !prev);
     };
 
-    const addToWatchList = () => {
-        setaddWatchList((prev) => !prev);
+    const addToWatchList = async () => {
+        await handleAddToWatchlist(id, addWatchList);
+        setAddWatchList((prev) => !prev);
     };
 
     if (isFetching) {

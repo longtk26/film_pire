@@ -1,6 +1,8 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
 const tmdbApiKey = process.env.REACT_APP_TMDB_KEY;
+const accountId = localStorage.getItem("account_id");
+const sessionId = localStorage.getItem("session_id");
 
 export const tmdbApi = createApi({
     reducerPath: "tmdbApi",
@@ -64,6 +66,18 @@ export const tmdbApi = createApi({
         getActor: builder.query({
             query: (id) => `person/${id}?api_key=${tmdbApiKey}`,
         }),
+
+        //Favorites and watchlists
+
+        getFavoriteMovies: builder.query({
+            query: () =>
+                `account/${accountId}/favorite/movies?page=1&api_key=${tmdbApiKey}&session_id=${sessionId}&sort_by=created_at.desc`,
+        }),
+
+        getWatchListMovies: builder.query({
+            query: () =>
+                `account/${accountId}/watchlist/movies?page=1&api_key=${tmdbApiKey}&session_id=${sessionId}&sort_by=created_at.desc`,
+        }),
     }),
 });
 
@@ -74,4 +88,6 @@ export const {
     useGetMovieRecommendationsQuery,
     useGetMoviesOfActorQuery,
     useGetActorQuery,
+    useGetFavoriteMoviesQuery,
+    useGetWatchListMoviesQuery,
 } = tmdbApi;

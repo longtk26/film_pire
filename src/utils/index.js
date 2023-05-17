@@ -5,7 +5,7 @@ const api_key = process.env.REACT_APP_TMDB_KEY;
 export const moviesApi = axios.create({
     baseURL: "https://api.themoviedb.org/3",
     params: {
-        api_key,
+        api_key: api_key,
     },
 });
 
@@ -42,6 +42,46 @@ export const createSessionId = async () => {
         } catch (error) {
             console.log(error);
         }
+    }
+};
+
+export const handleAddToFavorite = async (movieId, favoriteState) => {
+    const accountId = localStorage.getItem("account_id");
+    const sessionId = localStorage.getItem("session_id");
+
+    if (!accountId || !sessionId) return null;
+
+    try {
+        await axios.post(
+            `https://api.themoviedb.org/3/account/${accountId}/favorite?session_id=${sessionId}&api_key=${api_key}`,
+            {
+                media_type: "movie",
+                media_id: movieId,
+                favorite: !favoriteState,
+            }
+        );
+    } catch (error) {
+        console.log(error);
+    }
+};
+
+export const handleAddToWatchlist = async (movieId, watchListState) => {
+    const accountId = localStorage.getItem("account_id");
+    const sessionId = localStorage.getItem("session_id");
+
+    if (!accountId || !sessionId) return null;
+
+    try {
+        await axios.post(
+            `https://api.themoviedb.org/3/account/${accountId}/watchlist?session_id=${sessionId}&api_key=${api_key}`,
+            {
+                media_type: "movie",
+                media_id: movieId,
+                watchlist: !watchListState,
+            }
+        );
+    } catch (error) {
+        console.log(error);
     }
 };
 

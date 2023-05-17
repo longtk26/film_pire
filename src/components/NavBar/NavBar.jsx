@@ -30,6 +30,7 @@ import { setUser } from "../../features/auth";
 
 const NavBar = () => {
     const { isAuthenticated, user } = useSelector((state) => state.user);
+
     const [mobileOpen, setMobileOpen] = useState(false);
     const dispatch = useDispatch();
 
@@ -47,10 +48,10 @@ const NavBar = () => {
                     const { data: userData } = await moviesApi.get(
                         `account?session_id=${sessionIdFromLocalStorage}`
                     );
-
                     dispatch(setUser(userData));
                 } else {
                     const sessionId = await createSessionId();
+                    console.log(sessionId);
                     const { data: userData } = await moviesApi.get(
                         `account?session_id=${sessionId}`
                     );
@@ -61,7 +62,7 @@ const NavBar = () => {
         };
         userLogin();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [token]);
+    }, [token, sessionIdFromLocalStorage]);
 
     return (
         <>
