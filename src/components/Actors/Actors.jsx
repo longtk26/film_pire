@@ -47,7 +47,7 @@ const Actors = () => {
                                 md: "600px",
                             },
                             mb: "30px",
-                            boxShadow: "0.5em 1em 1em rgb(64, 64, 70)",
+                            boxShadow: "0.5em 1em 1em",
                             borderRadius: "20px",
                             ml: {
                                 xs: "30px",

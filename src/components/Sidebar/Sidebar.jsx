@@ -69,7 +69,13 @@ const Sidebar = ({ setMobileOpen }) => {
                                     component="img"
                                     src={genresIcon[label.toLowerCase()]}
                                     height={30}
-                                    alt=""
+                                    sx={{
+                                        filter:
+                                            theme.palette.mode === "dark"
+                                                ? "invert(1)"
+                                                : "",
+                                    }}
+                                    alt={label}
                                 />
                             </ListItemIcon>
 
@@ -95,9 +101,15 @@ const Sidebar = ({ setMobileOpen }) => {
                                 }
                             >
                                 <ListItemIcon>
-                                    <img
+                                    <BoxMUI
+                                        component="img"
                                         src={genresIcon[name.toLowerCase()]}
-                                        style={classes.genreImage}
+                                        sx={{
+                                            filter:
+                                                theme.palette.mode === "dark"
+                                                    ? "invert(1)"
+                                                    : "",
+                                        }}
                                         height={30}
                                         alt={name}
                                     />

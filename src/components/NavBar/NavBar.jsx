@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import {
@@ -26,6 +26,7 @@ import { Link } from "react-router-dom";
 import useClassesNavBar from "./useClassesNavBar";
 import { Search, Sidebar } from "..";
 import { getToken, createSessionId, moviesApi } from "../../utils";
+import { ToggleThemeContext } from "../../utils/ToggleTheme";
 import { setUser } from "../../features/auth";
 
 const NavBar = () => {
@@ -40,6 +41,8 @@ const NavBar = () => {
     const isMobile = useMediaQuery("(max-width: 600px)");
     const classes = useClassesNavBar();
     const theme = useTheme();
+
+    const { toggleMode } = useContext(ToggleThemeContext);
 
     useEffect(() => {
         const userLogin = async () => {
@@ -86,7 +89,7 @@ const NavBar = () => {
                     <IconButton
                         color="inherit"
                         sx={{ ml: 1 }}
-                        onClick={() => {}}
+                        onClick={toggleMode}
                     >
                         {theme.palette.mode === "dark" ? (
                             <Brightness7 />

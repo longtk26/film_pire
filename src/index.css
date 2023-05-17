@@ -10,6 +10,7 @@
     background: #cfcfcf;
 }
 
-.css-12i7wg6-MuiPaper-root-MuiDrawer-paper {
+.css-12i7wg6-MuiPaper-root-MuiDrawer-paper,
+.css-15b8vjn-MuiPaper-root-MuiDrawer-paper {
     width: 240px;
 }
