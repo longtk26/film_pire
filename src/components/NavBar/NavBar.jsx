@@ -42,7 +42,7 @@ const NavBar = () => {
     const classes = useClassesNavBar();
     const theme = useTheme();
 
-    const { toggleMode } = useContext(ToggleThemeContext);
+    const colorMode = useContext(ToggleThemeContext);
 
     useEffect(() => {
         const userLogin = async () => {
@@ -54,7 +54,6 @@ const NavBar = () => {
                     dispatch(setUser(userData));
                 } else {
                     const sessionId = await createSessionId();
-                    console.log(sessionId);
                     const { data: userData } = await moviesApi.get(
                         `account?session_id=${sessionId}`
                     );
@@ -89,7 +88,7 @@ const NavBar = () => {
                     <IconButton
                         color="inherit"
                         sx={{ ml: 1 }}
-                        onClick={toggleMode}
+                        onClick={colorMode.toggleMode}
                     >
                         {theme.palette.mode === "dark" ? (
                             <Brightness7 />

@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { Box, Typography, Button } from "@mui/material";
 import { ExitToApp } from "@mui/icons-material";
 import {
@@ -8,10 +9,18 @@ import {
 import { RatedCards } from "..";
 
 const Profile = () => {
+    const { user } = useSelector((state) => state.user);
+
     const { data: favoriteMovies, refetch: refetchFavorite } =
-        useGetFavoriteMoviesQuery();
+        useGetFavoriteMoviesQuery({
+            accountId: user.id,
+            sessionId: localStorage.getItem("session_id"),
+        });
     const { data: watchlistMovies, refetch: refetchWatchlist } =
-        useGetWatchListMoviesQuery();
+        useGetWatchListMoviesQuery({
+            accountId: user.id,
+            sessionId: localStorage.getItem("session_id"),
+        });
 
     const logout = () => {
         localStorage.clear();

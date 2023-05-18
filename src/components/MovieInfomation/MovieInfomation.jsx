@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useTheme } from "@mui/material/styles";
 import {
     Box,
@@ -42,11 +42,18 @@ const MovieInfomation = () => {
     const [page, setPage] = useState(1);
     const { id } = useParams();
     const dispatch = useDispatch();
+    const { user } = useSelector((state) => state.user);
     const theme = useTheme();
 
     const { data, isFetching, isError } = useGetMovieQuery(id);
-    const { data: favoriteMovies } = useGetFavoriteMoviesQuery();
-    const { data: watchlistMovies } = useGetWatchListMoviesQuery();
+    const { data: favoriteMovies } = useGetFavoriteMoviesQuery({
+        accountId: user.id,
+        sessionId: localStorage.getItem("session_id"),
+    });
+    const { data: watchlistMovies } = useGetWatchListMoviesQuery({
+        accountId: user.id,
+        sessionId: localStorage.getItem("session_id"),
+    });
     const { data: recommendations, isFetching: isFetchingRecommendations } =
         useGetMovieRecommendationsQuery({ id, page });
 
