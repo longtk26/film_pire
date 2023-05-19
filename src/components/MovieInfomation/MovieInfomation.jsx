@@ -85,6 +85,10 @@ const MovieInfomation = () => {
         setAddWatchList((prev) => !prev);
     };
 
+    const topCastsData = data?.credits?.cast
+        ?.filter((item) => item?.profile_path)
+        .slice(0, 6);
+
     if (isFetching) {
         return (
             <Box display="flex" alignItems="center" justifyContent="center">
@@ -240,7 +244,7 @@ const MovieInfomation = () => {
                         Top Cast
                     </Typography>
                     <Grid item container spacing={2}>
-                        {data?.credits?.cast?.slice(0, 6).map((castItem) => (
+                        {topCastsData.map((castItem) => (
                             <Grid
                                 item
                                 component={Link}
@@ -254,13 +258,15 @@ const MovieInfomation = () => {
                                     component="img"
                                     alt={castItem.name}
                                     src={
-                                        castItem.profile_path &&
-                                        `https://image.tmdb.org/t/p/w500/${castItem.profile_path}`
+                                        castItem.profile_path
+                                            ? `https://image.tmdb.org/t/p/w500/${castItem.profile_path}`
+                                            : `http://s3.amazonaws.com/37assets/svn/765-default-avatar.png`
                                     }
                                     sx={{
                                         height: "128px",
                                         borderRadius: "10px",
                                         objectFit: "cover",
+                                        width: "98px",
                                     }}
                                 />
                                 <Typography variant="body1" color="textPrimary">

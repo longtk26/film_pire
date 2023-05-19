@@ -4,15 +4,20 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 export const ToggleThemeContext = createContext();
 
 const ToggleTheme = ({ children }) => {
-    const [mode, setMode] = useState("light");
+    const modePalette = localStorage.getItem("mode") || "light";
+    const [mode, setMode] = useState(modePalette);
 
     const toggleMode = () => {
-        setMode((prev) => (prev === "light" ? "dark" : "light"));
+        setMode((prev) => {
+            const newMode = prev === "light" ? "dark" : "light";
+            localStorage.setItem("mode", newMode);
+            return newMode;
+        });
     };
 
     const theme = createTheme({
         palette: {
-            mode,
+            mode: modePalette,
         },
     });
 

@@ -54,6 +54,7 @@ const Profile = () => {
                         title="Favorite Movies"
                         data={favoriteMovies?.results}
                     />
+                    <Box marginTop={5} />
                     <RatedCards
                         title="Watchlist Movies"
                         data={watchlistMovies?.results}
