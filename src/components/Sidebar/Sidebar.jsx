@@ -1,5 +1,4 @@
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectGenreOrCategory } from "../../features/currentGenreOrCategory";
 import {
     Divider,
@@ -39,11 +38,17 @@ const redLogo =
 const blueLogo =
     "https://fontmeme.com/permalink/210930/6854ae5c7f76597cf8680e48a2c8a50a.png";
 
-const Sidebar = ({ setMobileOpen }) => {
+const Sidebar = () => {
+    const { genreIdOrCategoryName } = useSelector(
+        (state) => state.currentGenreOrCategory
+    );
     const theme = useTheme();
     const classes = useClassesSidebar();
     const { data, isLoading } = useGetGenresQuery();
     const dispatch = useDispatch();
+
+    const colorActive =
+        theme.palette.mode === "light" ? "rgba(0, 0, 0, 0.2)" : "#f44336";
 
     return (
         <>
@@ -60,9 +65,14 @@ const Sidebar = ({ setMobileOpen }) => {
                 {categories.map(({ label, value }) => (
                     <Link key={value} style={classes.links} to="/">
                         <ListItemButton
-                            onClick={() =>
-                                dispatch(selectGenreOrCategory(value))
-                            }
+                            onClick={() => {
+                                dispatch(selectGenreOrCategory(value));
+                            }}
+                            sx={{
+                                bgcolor:
+                                    value === genreIdOrCategoryName &&
+                                    colorActive,
+                            }}
                         >
                             <ListItemIcon>
                                 <BoxMUI
@@ -93,12 +103,17 @@ const Sidebar = ({ setMobileOpen }) => {
                         <CircularProgress />
                     </BoxMUI>
                 ) : (
-                    data.genres.map(({ name, id }) => (
+                    data?.genres?.map(({ name, id }) => (
                         <Link key={id} style={classes.links} to="/">
                             <ListItemButton
-                                onClick={() =>
-                                    dispatch(selectGenreOrCategory(id))
-                                }
+                                onClick={() => {
+                                    dispatch(selectGenreOrCategory(id));
+                                }}
+                                sx={{
+                                    bgcolor:
+                                        id === genreIdOrCategoryName &&
+                                        colorActive,
+                                }}
                             >
                                 <ListItemIcon>
                                     <BoxMUI

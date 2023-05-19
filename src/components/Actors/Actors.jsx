@@ -60,7 +60,7 @@ const Actors = () => {
                         {data?.name}
                     </Typography>
                     <Typography variant="h5" gutterBottom>
-                        Born: {dayOfWeek} {timeUI}
+                        Born: {dayOfWeek} {timeUI} {!timeUI && "Not infomation"}
                     </Typography>
                     <Typography
                         variant="body2"

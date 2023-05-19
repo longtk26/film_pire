@@ -17,7 +17,7 @@ const ToggleTheme = ({ children }) => {
 
     const theme = createTheme({
         palette: {
-            mode: modePalette,
+            mode: mode,
         },
     });
 

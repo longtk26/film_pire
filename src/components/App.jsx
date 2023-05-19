@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Box, CssBaseline } from "@mui/material";
 
@@ -9,15 +10,19 @@ import {
     NavBar,
 } from "../components";
 
+import useAlan from "../hooks/useAlan";
 import classes from "./styles";
 
 const App = () => {
+    const alanBtnContainer = useRef();
+
+    useAlan();
     return (
         <BrowserRouter>
             <Box sx={classes.root}>
                 <CssBaseline />
                 <NavBar />
-                <Box sx={classes.content}>
+                <Box sx={classes.content} component="main">
                     <Box sx={classes.toolbar} />
                     <Routes>
                         <Route path="/" element={<Movies />} />
@@ -30,6 +35,7 @@ const App = () => {
                         <Route path="/profile/:id" element={<Profile />} />
                     </Routes>
                 </Box>
+                <div ref={alanBtnContainer} />
             </Box>
         </BrowserRouter>
     );
