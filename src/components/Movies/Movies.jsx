@@ -15,7 +15,7 @@ import useClassesMovies from "./useClassesMovies";
 const Movies = () => {
     const theme = useTheme();
     const isLarge = useMediaQuery(theme.breakpoints.up("xl"));
-    const numbersOfMovie = isLarge ? 18 : 16;
+    const numbersOfMovie = isLarge ? 19 : 17;
 
     const [page, setPage] = useState(1);
 
