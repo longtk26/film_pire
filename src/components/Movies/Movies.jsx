@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
     Box,
     CircularProgress,
@@ -9,7 +9,7 @@ import { useTheme } from "@mui/material/styles";
 import { useSelector } from "react-redux";
 
 import { useGetMoviesQuery } from "../../services/TMDB";
-import { MovieList, Pagination } from "..";
+import { MovieList, Pagination, FeatureMovie } from "..";
 import useClassesMovies from "./useClassesMovies";
 
 const Movies = () => {
@@ -62,7 +62,12 @@ const Movies = () => {
 
     return (
         <div>
-            <MovieList movies={data} numbersOfMovie={numbersOfMovie} />
+            <FeatureMovie movie={data?.results[0]} />
+            <MovieList
+                movies={data}
+                numbersOfMovie={numbersOfMovie}
+                excludedMovie
+            />
             <Pagination
                 currentPage={page}
                 setPage={setPage}

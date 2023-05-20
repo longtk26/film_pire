@@ -38,7 +38,7 @@ const redLogo =
 const blueLogo =
     "https://fontmeme.com/permalink/210930/6854ae5c7f76597cf8680e48a2c8a50a.png";
 
-const Sidebar = () => {
+const Sidebar = ({ setMobileOpen }) => {
     const { genreIdOrCategoryName } = useSelector(
         (state) => state.currentGenreOrCategory
     );
@@ -66,6 +66,7 @@ const Sidebar = () => {
                     <Link key={value} style={classes.links} to="/">
                         <ListItemButton
                             onClick={() => {
+                                setMobileOpen(false);
                                 dispatch(selectGenreOrCategory(value));
                             }}
                             sx={{
@@ -107,6 +108,7 @@ const Sidebar = () => {
                         <Link key={id} style={classes.links} to="/">
                             <ListItemButton
                                 onClick={() => {
+                                    setMobileOpen(false);
                                     dispatch(selectGenreOrCategory(id));
                                 }}
                                 sx={{

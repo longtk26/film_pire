@@ -14,3 +14,8 @@
 .css-15b8vjn-MuiPaper-root-MuiDrawer-paper {
     width: 240px;
 }
+
+.css-13bjm83-MuiCardMedia-root {
+    background-color: rgba(0, 0, 0, 0.575);
+    background-blend-mode: darken;
+}

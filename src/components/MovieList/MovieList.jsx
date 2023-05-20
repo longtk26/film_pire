@@ -2,11 +2,13 @@ import { Grid } from "@mui/material";
 import { Movie } from "..";
 import useClassesMovieList from "./useClassesMovieList";
 
-const MovieList = ({ movies, numbersOfMovie }) => {
+const MovieList = ({ movies, numbersOfMovie, excludedMovie }) => {
+    const startMovie = excludedMovie ? 1 : 0;
+
     const classes = useClassesMovieList();
     const moviesHavePoster = movies?.results
         ?.filter((item) => item?.poster_path)
-        .slice(0, numbersOfMovie);
+        .slice(startMovie, numbersOfMovie);
 
     return (
         <Grid container sx={classes.movieContainer}>

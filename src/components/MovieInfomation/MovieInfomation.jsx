@@ -75,6 +75,11 @@ const MovieInfomation = () => {
         );
     }, [watchlistMovies, data?.id]);
 
+    useEffect(() => {
+        dispatch(selectGenreOrCategory(""));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     const addToFavorite = async () => {
         await handleAddToFavorite(id, favorite);
         setFavorite((prev) => !prev);
