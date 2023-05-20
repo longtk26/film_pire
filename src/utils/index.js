@@ -18,7 +18,7 @@ export const getToken = async () => {
 
             localStorage.setItem("request_token", token);
 
-            window.location.href = `https://www.themoviedb.org/authenticate/${token}?redirect_to=${window.location.origin}/approved`;
+            window.location.href = `https://www.themoviedb.org/authenticate/${token}?redirect_to=${window.location.origin}/index.html/approved`;
         }
     } catch (error) {
         console.log(error);

@@ -15,7 +15,7 @@ import classes from "./styles";
 
 const App = () => {
     const alanBtnContainer = useRef();
-
+    console.log(window.location.origin);
     useAlan();
     return (
         <BrowserRouter>
