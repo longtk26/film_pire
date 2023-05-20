@@ -11,11 +11,13 @@
 }
 
 .css-12i7wg6-MuiPaper-root-MuiDrawer-paper,
-.css-15b8vjn-MuiPaper-root-MuiDrawer-paper {
+.css-15b8vjn-MuiPaper-root-MuiDrawer-paper,
+.css-1l8j5k8 {
     width: 240px;
 }
 
-.css-13bjm83-MuiCardMedia-root {
+.css-13bjm83-MuiCardMedia-root,
+.css-1sws2le {
     background-color: rgba(0, 0, 0, 0.575);
     background-blend-mode: darken;
 }
