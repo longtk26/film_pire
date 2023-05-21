@@ -26,7 +26,11 @@ const App = () => {
                     <Box sx={classes.toolbar} />
                     <Routes>
                         <Route path="/" element={<Movies />} />
-                        <Route path="/approved" element={<Movies />} />
+                        <Route path="/index.html" element={<Movies />} />
+                        <Route
+                            path="/index.html/approved"
+                            element={<Movies />}
+                        />
                         <Route
                             path="/movie/:id"
                             element={<MovieInfomation />}
