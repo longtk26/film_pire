@@ -1,4 +1,5 @@
 import { useEffect, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import alanBtn from "@alan-ai/alan-sdk-web";
 
@@ -11,6 +12,7 @@ import { getToken } from "../utils";
 
 const useAlan = () => {
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { setMode } = useContext(ToggleThemeContext);
 
     useEffect(() => {
@@ -45,16 +47,19 @@ const useAlan = () => {
                                 genreOrCategory.toLowerCase()
                         );
                         if (foundGenre) {
+                            navigate("/");
                             dispatch(selectGenreOrCategory(foundGenre.id));
                         } else {
                             const value =
                                 genreOrCategory === "top rated"
                                     ? "top_rated"
                                     : genreOrCategory;
+                            navigate("/");
                             dispatch(selectGenreOrCategory(value));
                         }
                         break;
                     case "search":
+                        navigate("/");
                         dispatch(searchMovie(query));
                         break;
                     default:

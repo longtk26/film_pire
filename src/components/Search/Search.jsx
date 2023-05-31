@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { TextField, InputAdornment, Box } from "@mui/material";
 import { Search as SearchIcon } from "@mui/icons-material";
 import { useTheme } from "@mui/material/styles";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 
 import { searchMovie } from "../../features/currentGenreOrCategory";
@@ -10,7 +10,11 @@ import { searchMovie } from "../../features/currentGenreOrCategory";
 const Search = () => {
     const theme = useTheme();
     const dispatch = useDispatch();
+    const { searchQuery } = useSelector(
+        (state) => state.currentGenreOrCategory
+    );
     const [query, setQuery] = useState("");
+
     const location = useLocation();
 
     const handleKeyDown = (e) => {
@@ -18,6 +22,10 @@ const Search = () => {
             dispatch(searchMovie(query));
         }
     };
+
+    useEffect(() => {
+        setQuery(searchQuery);
+    }, [searchQuery]);
 
     if (location.pathname !== "/") return null;
 
